@@ -22,7 +22,8 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  margin: 0 auto;
+  max-width: 1280px;
 }
 
 h1 {
@@ -30,9 +31,8 @@ h1 {
   line-height: 1.1;
 }
 
-#columns-table {
+#columns-container {
   width: 100%;
-  max-width: 1280px;
   display: flex;
   flex-direction: row;
   gap: 1rem;
@@ -57,11 +57,25 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.left,
-.right {
+.column {
   background: #646cff34;
   flex: 1;
   height: 90vh;
+  max-width: 20rem;
+}
+
+.add-column {
+  flex: auto;
+}
+
+.add-column button {
+  height: 100%;
+  width: 10rem;
+  background: #ff557711;
+}
+
+.add-column button:hover {
+  background: #ff557722;
 }
 
 .complaint-item {
@@ -75,4 +89,16 @@ button:focus-visible {
 
 .complaint-item:active {
   cursor: grabbing;
+}
+
+form {
+  margin-top: 1rem;
+}
+
+form label {
+  display: flex;
+}
+
+form input {
+  margin-left: 0.5rem;
 }

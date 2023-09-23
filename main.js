@@ -1,7 +1,9 @@
 import './style.css';
 
-const leftColumn = document.querySelector('.left');
-const rightColumn = document.querySelector('.right');
+const addColumnButton = document.querySelector('.add-column button');
+const columns = Array.from(document.querySelectorAll('.column'));
+const leftColumn = columns[0];
+const getLastColumn = () => columns[columns.length - 1];
 const form = document.querySelector('form');
 
 const onFormSubmit = (event) => {
@@ -26,10 +28,22 @@ const createComplaintItem = (text, column) => {
   });
 
   item.addEventListener('dragend', (event) => {
+    if (event.dataTransfer.dropEffect === 'none') {
+      return;
+    }
+
     column.removeChild(event.target);
   });
 
   return item;
+};
+
+const addColumn = () => {
+  const newColumn = document.createElement('div');
+  newColumn.classList.add('column');
+  getLastColumn().insertAdjacentElement('afterend', newColumn);
+  columns.push(newColumn);
+  setupColumn(newColumn);
 };
 
 const setupColumn = (column) => {
@@ -45,7 +59,7 @@ const setupColumn = (column) => {
   });
 };
 
-setupColumn(rightColumn);
-setupColumn(leftColumn);
+columns.forEach(setupColumn);
 
 form.addEventListener('submit', onFormSubmit);
+addColumnButton.addEventListener('click', addColumn);
