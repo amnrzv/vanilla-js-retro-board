@@ -22,7 +22,7 @@ a:hover {
 }
 
 body {
-  margin: 0 auto;
+  margin: 2rem auto;
   max-width: 1280px;
 }
 
@@ -36,6 +36,7 @@ h1 {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  overflow-x: auto;
 }
 
 button {
@@ -60,8 +61,10 @@ button:focus-visible {
 .column {
   background: #646cff34;
   flex: 1;
-  height: 90vh;
+  height: 60rem;
   max-width: 20rem;
+  min-width: 12rem;
+  overflow-y: auto;
 }
 
 .add-column {
@@ -79,11 +82,13 @@ button:focus-visible {
 }
 
 .complaint-item {
-  background: pink;
+  background: #eeccee;
   padding: 0.5rem;
   margin: 1rem;
-  border: 2px solid grey;
+  border: 1px solid #886688;
+  border-radius: 0.25rem;
   text-align: center;
+  overflow-wrap: break-word;
   cursor: grab;
 }
 
@@ -93,12 +98,15 @@ button:focus-visible {
 
 form {
   margin-top: 1rem;
+  display: none;
 }
 
-form label {
+.column:hover form {
   display: flex;
 }
 
 form input {
-  margin-left: 0.5rem;
+  margin: 0 1rem;
+  width: 100%;
+  padding: 0.5rem;
 }

@@ -1,55 +1,36 @@
+import { createComplaintItem } from "./create-complaint";
+
 const addColumnButton = document.querySelector('.add-column button');
 const columns = Array.from(document.querySelectorAll('.column'));
-const leftColumn = columns[0];
+const firstColumn = columns[0];
 const getLastColumn = () => columns[columns.length - 1];
 const form = document.querySelector('form');
-let shouldDelete = false;
 
-const onFormSubmit = (event) => {
+const onFormSubmit = (event, column) => {
+  const currentForm = event.target;
   event.preventDefault();
-  const formData = new FormData(form);
+  const formData = new FormData(currentForm);
   if (formData.get('complaint').trim() === '') {
     return;
   }
 
-  const item = createComplaintItem(formData.get('complaint'), leftColumn);
-  leftColumn.appendChild(item);
+  const item = createComplaintItem(formData.get('complaint'), column);
+  currentForm.insertAdjacentElement('beforebegin', item);
 
-  form.reset();
-};
-
-const createComplaintItem = (text, column) => {
-  const item = document.createElement('div');
-  item.classList.add('complaint-item');
-  item.setAttribute('draggable', 'true');
-  item.innerText = text;
-
-  item.addEventListener('dragstart', (event) => {
-    shouldDelete = true;
-    event.dataTransfer.effectAllowed = 'move';
-    event.dataTransfer.setData('text/plain', event.target.innerText);
-  });
-
-  item.addEventListener('dragend', (event) => {
-    if (event.dataTransfer.dropEffect === 'none') {
-      return;
-    }
-
-    if (shouldDelete) {
-      column.removeChild(event.target);
-    }
-  });
-
-  item.addEventListener('drop', (event) => {
-    shouldDelete = false;
-  });
-
-  return item;
+  currentForm.reset();
 };
 
 const addColumn = () => {
   const newColumn = document.createElement('div');
   newColumn.classList.add('column');
+  const newForm = document.createElement('form');
+  const input = document.createElement('input');
+  input.ariaLabel = 'enter complaint';
+  input.name = 'complaint';
+  newForm.appendChild(input);
+  newForm.addEventListener('submit', (event) => onFormSubmit(event, newColumn));
+  newColumn.appendChild(newForm);
+
   getLastColumn().insertAdjacentElement('afterend', newColumn);
   columns.push(newColumn);
   setupColumn(newColumn);
@@ -78,5 +59,5 @@ const setupColumn = (column) => {
 
 columns.forEach(setupColumn);
 
-form.addEventListener('submit', onFormSubmit);
+form.addEventListener('submit', (event) => onFormSubmit(event, firstColumn));
 addColumnButton.addEventListener('click', addColumn);

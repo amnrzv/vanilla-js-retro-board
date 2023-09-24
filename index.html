@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="columns-container">
-      <div class="column"></div>
-      <div class="add-column">
-        <button>+</button>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
+  <title>Vite App</title>
+</head>
+<body>
+  <h1>Treelow</h1>
+  <div id="columns-container">
+    <div class="column">
+      <form>
+        <input aria-label="enter complaint" name="complaint" />
+      </form>
     </div>
-    <form>
-      <label for="complaint"
-        >Enter your complaint
-        <input name="complaint" id="complaint" type="text" />
-      </label>
-    </form>
-    <script type="module" src="/main.js"></script>
-  </body>
+    <div class="add-column">
+      <button>+</button>
+    </div>
+  </div>
+<script type="module" src="/main.js"></script>
+</body>
 </html>
